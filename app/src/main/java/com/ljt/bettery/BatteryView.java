@@ -153,6 +153,8 @@ public class BatteryView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
        if(oritation==VERTICAL){
+           //总间隔数=(item_count+1)  乘以间隔高度（间隔高度等于item_height的一半）
+           //总数=item_count 乘以 item_height + 总间隔数 + 顶部一个矩形（高度等于item的高度，宽度等于item的宽度的一半）
            mHeight= (int) (item_count*item_height+(item_count+1)*item_height/2+item_height);
            mWidth= (int) (2*item_width);
        }

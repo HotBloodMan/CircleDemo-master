@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 
 /**
- * Created by anlia on 2017/10/10.
+ * 自定义圆环+属性动画
  */
 
 public class CircleBarView extends View {
