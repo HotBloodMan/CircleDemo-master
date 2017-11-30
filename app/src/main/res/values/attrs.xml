@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--注意这里的name要和自定义View的名称一致，不然在xml布局中无法引用-->
+    <declare-styleable name="CircleBarView">
+        <attr name="progress_color" format="color"></attr>
+        <attr name="bg_color" format="color"></attr>
+
+        <attr name="bar_width" format="dimension"></attr>
+
+        <attr name="start_angle" format="float"></attr>
+        <attr name="sweep_angle" format="float"></attr>
+    </declare-styleable>
+    <declare-styleable name="WaveProgressView">
+        <attr name="wave_color" format="color"></attr>
+        <attr name="second_wave_color" format="color"></attr>
+        <attr name="wave_bg_color" format="color"></attr>
+
+        <attr name="wave_width" format="dimension"></attr>
+        <attr name="wave_height" format="dimension"></attr>
+    </declare-styleable>
+
+    <!--<declare-styleable name="CircleView">-->
+        <!--<attr name="progress_color" format="color"></attr>-->
+        <!--<attr name="bg_color" format="color"></attr>-->
+        <!--<attr name="start_angle" format="float"></attr>-->
+        <!--<attr name="sweep_angle" format="float"></attr>-->
+        <!--<attr name="bar_width" format="dimension"></attr>-->
+    <!--</declare-styleable>-->
+
+
+
+    <!--自定义电池-->
+    <declare-styleable name="charging_progress">
+        <!--item个数-->
+        <attr name="cgv_item_count" format="integer" />
+
+        <!--方向-->
+        <attr name="cgv_oritation" format="integer" />
+
+        <!--动画时长-->
+        <attr name="cgv_duration" format="integer" />
+
+        <!--边界宽度-->
+        <attr name="cgv_border_width" format="dimension" />
+
+        <!--边界颜色-->
+        <attr name="cgv_border_color" format="color" />
+
+
+        <!--圆角半径-->
+        <attr name="cgv_border_cornor_radius" format="dimension" />
+
+
+        <!--充电内模块的宽度-->
+        <attr name="cgv_item_width" format="dimension" />
+
+        <!--充电内模块的高度-->
+        <attr name="cgv_item_height" format="dimension" />
+
+        <!--充电内模块的前景色，充电中的颜色-->
+        <attr name="cgv_item_charging_src" format="color" />
+
+        <!--充电内模块的背景色，未充电的颜色-->
+        <attr name="cgv_item_charging_background" format="color" />
+
+        <!--view 的背景-->
+        <attr name="cgv_background" format="color" />
+    </declare-styleable>
+
+
+</resources>
