@@ -10,11 +10,13 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.ljt.circledemo.R;
 
 /**
  * Created by ${JT.L} on 2017/11/30.
+ * 参考https://github.com/crazyandcoder/ChargeProgress
  */
 
 public class BatteryView extends View {
@@ -139,13 +141,85 @@ public class BatteryView extends View {
         int right=5*mWidth/8;
         int bottom= (int) (item_height/2);
         RectF topRect = new RectF(left, top, right, bottom);
+        //画小矩形
         canvas.drawRoundRect(topRect,border_cornor_radius,border_cornor_radius,mPaint);
-
+        //画大矩形
         RectF border = new RectF(0, bottom, mWidth, mHeight);
         canvas.drawRoundRect(border, border_cornor_radius, border_cornor_radius, mPaint);
 
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor((background));
+
+//        //填充顶部背景色
+        RectF topRectInner = new RectF(left + border_cornor_radius / 2, top + border_cornor_radius / 2, right - border_cornor_radius / 2, bottom - border_cornor_radius / 2);
+        canvas.drawRect(topRectInner,mPaint);
+
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(border_width);
+        mPaint.setColor(border_color);
+
+        for(int i=1;i<=item_count;i++){
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setColor(item_charging_background);
+            RectF backRect=new RectF(mWidth/4,
+                    (i+1)*item_height/2+(i-1)*item_height,
+                    3*mWidth/4,
+                    item_height/2 +i*(3*item_height/2));
+            canvas.drawRoundRect(backRect,border_cornor_radius,border_cornor_radius,mPaint);
+        }
+
+        if(chargeType==DC){
+
+        }else{
+            drawACAnimation(canvas);
+        }
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(border_width);
+        mPaint.setColor((border_color));
+    }
+
+    public void closeAnimation(){
+
+        progress=0;
+        invalidate();
+
+        if(animAC!=null){
+            animAC.cancel();
+        }
+
+        if (animatorDC != null) {
+            animatorDC.cancel();
+        }
+
+    }
+
+    public void setACAnimation(){
+        chargeType=AC;
+        animAC=ObjectAnimator.ofInt(this,"progress",100);
+        animAC.setDuration(10*1000);
+        animAC.setInterpolator(new LinearInterpolator());
+        animAC.setRepeatCount(ValueAnimator.INFINITE);
+        animAC.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                invalidate();
+            }
+        });
+        animAC.start();
+    }
+    //启动动画填充的颜色
+    private void drawACAnimation(Canvas canvas) {
+        int j = getProgress() / item_count;
+        for(int i=item_count;i>=(item_count-j);i--){
+            RectF backRect=new RectF(mWidth/4,
+                    (i+1)*item_height/2+(i-1)*item_height,
+                    3 * mWidth / 4,
+                    item_height / 2 + i * (3 * item_height / 2));
+            canvas.drawRoundRect(backRect,border_cornor_radius,border_cornor_radius,mPaint);
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setColor(item_charging_src);
+            canvas.drawRoundRect(backRect,border_cornor_radius,border_cornor_radius,mPaint);
+        }
 
     }
 
